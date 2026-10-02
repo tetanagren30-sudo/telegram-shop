@@ -7,7 +7,7 @@
     <title>Shop</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -57,24 +57,53 @@
         button:hover {
             opacity: 0.9;
         }
+        #form{
+            display: none;
+            text-align: center;
+        }
+        input{
+            width: 90%;
+            outline: none;
+            margin: 10px 5%;
+            padding: 15px 10px;
+            font-size: 14px;
+            border: 2px solid silver;
+            border-radius: 5px;
+        }
+        input:focus{
+            border-color: #db5d5d;
+        }
     </style>
 </head>
 <body>
 <div id="main">
     <h1>Онлайн магазин</h1>
-    <img src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Homemade-Pizza_EXPS_FT23_376_EC_120123_3.jpg" alt="Піца">
+    <img src="https://cdn-media.choiceqr.com/prod-eat-susharniabarkrakow/menu/meRzRxC-FyUOQwk-DtCjJrH.jpeg" alt="Суші-бургер">
     <p>Смачна домашня піца зі свіжими інгредієнтами.</p>
     <button id="buy">Купити</button>
 </div>
+<form id="form">
+    <input type="text" placeholder="Ім'я" id="user_name">
+    <input type="text" placeholder="Email" id="user_email">
+    <input type="text" placeholder="Телефон" id="user_phone">
+    <button id="order">Оформити</button>
+  </form>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-    let tg = window.Telegram.WebApp;
-    tg.expand();
-
-    document.getElementById("buy").addEventListener("click", function() {
-        tg.sendData("Обрано товар: Піца");
-    });
-</script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+      let tg = window.Telegram.WebApp;
+      let buy = document.getElementById("buy");
+      let order = document.getElementById("order");
+      
+      buy.addEventListener("click", () => {
+          document.getElementById("main").style.display = "none";
+          document.getElementById("form").style.display = "block";
+          document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
+      });
+      
+      order.addEventListener("click", () => {
+          tg.close()
+      });
+    </script>
 </body>
 </html>
